@@ -1,0 +1,21 @@
+title:
+  size: 24
+
+subtitle:
+  size: 16
+
+axis:
+  label_size: 10
+  tick_size: 8
+
+description:
+  size: 16
+
+figure:
+  width: 6
+  height: 4
+
+page:
+  layout: wide
+  title: "Site-of-Care Optimization Dashboard"
+  layout: centered

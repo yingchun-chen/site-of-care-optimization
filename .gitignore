@@ -1,0 +1,21 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Output / generated folders
+results/
+artifacts/
+
+# Data
+data/
+
+# Local env / editor files
+.env
+.vscode/
+.DS_Store
+
+# Virtual environments
+.venv/
