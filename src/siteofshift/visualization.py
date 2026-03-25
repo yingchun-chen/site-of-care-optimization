@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
 import os
-
+import yaml
 OUTPUT_DIR = "results"
+
+def load_ui_config():
+    with open("config/ui.yaml", "r") as f:
+        return yaml.safe_load(f)
 
 def ensure_output_dir():
     if not os.path.exists(OUTPUT_DIR):
@@ -28,17 +32,36 @@ def plot_cost_vs_asc(df):
     plt.xlabel("ASC Rate")
     plt.ylabel("Provider Average Cost")
     plt.title("ASC Rate vs Avg. Cost")
-    plt.savefig("results/cost_vs_asc.png")
+    plt.tight_layout()
+    plt.savefig(f"{OUTPUT_DIR}/cost_vs_asc.png")
     plt.close()
 
 def plot_opportunity(df):
     ensure_output_dir()
 
-    plt.figure()
-    plt.scatter(df["asc_gap"], df["cost_gap"])
-    plt.title("Opportunity Space: ASC Gap vs Cost Gap")
-    plt.xlabel("ASC Gap (vs CBSA)")
-    plt.ylabel("Cost Gap (vs CBSA)")
+    plot_df = df.copy()
+
+    # dominant site of service
+    site_cols = ["asc_rate", "hopd_rate", "inpatient_rate"]
+    plot_df["dominant_site"] = plot_df[site_cols].idxmax(axis=1)
+    plot_df["dominant_site"] = plot_df["dominant_site"].replace({
+        "asc_rate": "ASC",
+        "hopd_rate": "HOPD",
+        "inpatient_rate": "Inpatient"
+
+    })
+
+    fig, ax = plt.subplots()
+
+    for site in ["ASC", "HOPD", "Inpatient"]:
+        site_df = plot_df[plot_df["dominant_site"] == site]
+        ax.scatter(site_df["asc_gap"], site_df["cost_gap"], label=site, alpha=0.7)
+
+    ax.set_title("Opportunity Space: ASC Gap vs Cost Gap by Dominant Site of Service")
+
+    ax.set_xlabel("ASC Gap (vs CBSA)")
+    ax.set_ylabel("Cost Gap (vs CBSA)")
+    ax.legend()
     plt.tight_layout()
     plt.savefig(f"{OUTPUT_DIR}/opportunity_scatter.png")
     plt.close()

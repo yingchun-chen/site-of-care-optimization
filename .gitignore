@@ -6,7 +6,6 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Output / generated folders
-results/
 artifacts/
 
 # Data

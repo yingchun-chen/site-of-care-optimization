@@ -15,7 +15,9 @@ from siteofshift.visualization import (
     plot_opportunity,
     plot_uplift,
     plot_uplift_feature_importance,
-    plot_uplift_segments
+    plot_uplift_segments,
+    plot_cost_vs_asc
+
 )
 
 logger = get_logger()
@@ -49,6 +51,7 @@ def main():
     plot_uplift_feature_importance(feature_importance)
     plot_uplift_segments(df)
     plot_site_of_care(df)
+    plot_cost_vs_asc(df)
     plot_opportunity(df)
     plot_uplift(df)
     df.to_csv("results/final_output.csv", index=False)
