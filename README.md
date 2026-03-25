@@ -37,3 +37,9 @@ siteofshift/
 ├── Dockerfile
 ├── pyproject.toml
 └── README.md
+```
+
+
+## Author 
+Yingchun Chen
+Senior Healthcare Data Analyst | Data Science & Analytics
