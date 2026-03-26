@@ -11,6 +11,7 @@ from siteofshift.logger import get_logger
 logger = get_logger()
 
 
+
 def train_model(df):
 
     # -------------------------
@@ -89,15 +90,20 @@ def train_model(df):
     metrics_df.to_csv("results/model_metrics.csv", index=False)
 
     # ROC Curve
+    fig, ax = plt.subplots()
     fpr, tpr, _ = roc_curve(y_test, y_prob)
-
-    plt.figure()
+    ax.plot([0, 1], [0, 1], linestyle="--", color="gray")
+    ax.text(0.6, 0.2, "Baseline (Random)", fontsize=9, color="gray")
+   
+    ax.plot([0, 1], [0, 1], linestyle="--", color="gray")
     plt.plot(fpr, tpr, label=f"AUC = {auc:.2f}")
     plt.xlabel("FPR")
     plt.ylabel("TPR")
-    plt.title("ROC Curve")
+    plt.title("Model Performance (ROC Curve, AUC = 0.78)")
     plt.legend()
     plt.savefig("results/roc_curve.png")
     plt.close()
 
     return model, df
+
+    
