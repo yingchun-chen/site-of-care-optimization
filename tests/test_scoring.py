@@ -1,5 +1,6 @@
 from siteofshift.data import generate_data
 from siteofshift.feature_engineering import (
+    validate_site_rates,
     compute_provider_cost,
     compute_cbsa_benchmark,
     compute_gaps,
@@ -9,6 +10,7 @@ from siteofshift.scoring import compute_opportunity
 
 def test_opportunity_score_created():
     df = generate_data(n=100)
+    df = validate_site_rates(df)
     df = compute_provider_cost(df)
     df = compute_cbsa_benchmark(df)
     df = compute_gaps(df)

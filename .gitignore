@@ -18,3 +18,11 @@ data/
 
 # Virtual environments
 .venv/
+
+# Ignore all Microsoft Word files
+*.docx
+*.doc
+
+# Ignore temporary Word files (created automatically while a file is open)
+~$*.docx
+~$*.doc

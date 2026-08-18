@@ -25,20 +25,20 @@ def run_uplift_model(df):
     # 2. Simulate heterogeneous treatment effect
     # -----------------------------
     noise = np.random.normal(0, 0.01, len(df))
-
+    asc_shortfall = (-df["asc_gap"]).clip(lower=0)
     true_effect = (
-        0.15 * df["asc_gap"] +
+        0.15 * asc_shortfall +
         0.10 * (df["procedure_volume"] / df["procedure_volume"].max()) -
         0.08 * df["risk_score"]
     )
 
     df["asc_rate_post"] = df["asc_rate"] + treatment_flag * (true_effect + noise)
 
-    # -----------------------------
-    # 3. Feature Engineering
-    # -----------------------------
+    # -------------------------------------
+    # 3.  Optional diagnostic interactions
+    # ------------------------------------
     df["volume_x_gap"] = df["procedure_volume"] * df["asc_gap"]
-    df["cost_x_gap"] = df["cost_gap"] * df["asc_gap"]
+    df["cost_x_gap"] = df["cost_gap"] * df["asc_gap"] * df["procedure_volume"]
 
     # -------------------------
     # 2. Load features
@@ -102,6 +102,11 @@ def run_uplift_model(df):
     # -----------------------------
     # 8. Segmentation
     # -----------------------------
+    # pd.qcut can fail if there are too many identical values, so we use a try-except block
+    # what pd.qcut does is it divides the data into quantiles, so if there are too many identical 
+    # values, it can't create the quantiles properly. In that case, we fall back to pd.cut 
+    # which just divides the data into bins.
+    # q=3: This means we want to divide the uplift scores into 3 quantiles (Low, Medium, High).
     try:
         df["uplift_segment"] = pd.qcut(
             df["uplift_score"],

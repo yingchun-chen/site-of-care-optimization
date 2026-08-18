@@ -27,7 +27,6 @@ def main():
     logger.info("Starting Site-of-Care Optimization pipeline...")
 
     df = generate_data()
-
     df = compute_provider_cost(df)
     df = compute_cbsa_benchmark(df)
     df = compute_gaps(df)
@@ -40,7 +39,7 @@ def main():
     df["final_score"] = (
         df["opportunity_score"] * df["uplift_score"]
     )
-
+    df.to_csv("results/final_output.csv", index=False)
     logger.info("Top providers by opportunity score:")
     print(df.sort_values("opportunity_score", ascending=False).head())
 
