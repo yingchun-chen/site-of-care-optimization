@@ -1,6 +1,7 @@
 import os
 from siteofshift.data import generate_data
 from siteofshift.feature_engineering import (
+    validate_site_rates,
     compute_provider_cost,
     compute_cbsa_benchmark,
     compute_gaps
@@ -27,6 +28,7 @@ def main():
     logger.info("Starting Site-of-Care Optimization pipeline...")
 
     df = generate_data()
+    df = validate_site_rates(df)
     df = compute_provider_cost(df)
     df = compute_cbsa_benchmark(df)
     df = compute_gaps(df)
