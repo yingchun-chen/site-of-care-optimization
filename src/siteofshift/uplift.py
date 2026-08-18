@@ -8,6 +8,8 @@ warnings.filterwarnings("ignore")
 
 
 def run_uplift_model(df):
+    rng = np.random.default_rng(42)
+
     """
     T-Learner implementation for uplift modeling
     """
@@ -19,6 +21,9 @@ def run_uplift_model(df):
         ["control", "treatment"], size=len(df)
     )
 
+    
+    noise = rng.normal( 0, 0.01, len(df))
+    
     treatment_flag = (df["treatment"] == "treatment").astype(int)
 
     # -----------------------------
@@ -29,7 +34,7 @@ def run_uplift_model(df):
     true_effect = (
         0.15 * asc_shortfall +
         0.10 * (df["procedure_volume"] / df["procedure_volume"].max()) -
-        0.08 * df["risk_score"]
+        0.02 * df["risk_score"]
     )
 
     df["asc_rate_post"] = df["asc_rate"] + treatment_flag * (true_effect + noise)

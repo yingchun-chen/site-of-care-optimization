@@ -111,7 +111,9 @@ st.pyplot(fig)
 # -------------------------
 # Opportunity vs Uplift
 # -------------------------
-plot_df = df.copy()
+plot_df = df[
+    df["opportunity_score"] > 0
+].copy()
 
 x_low, x_high = plot_df["opportunity_score"].quantile([0.01, 0.99])
 y_low, y_high = plot_df["uplift_score"].quantile([0.01, 0.99])
