@@ -2,35 +2,45 @@
 
 ## Overview
 
-A healthcare analytics project that identifies provider-level opportunities to shift procedures from higher-cost hospital settings to lower-cost ambulatory surgical centers (ASC).
+A conceptual healthcare analytics simulation that demonstrates a provider-level screening and prioritization framework for identifying potential site-of-care opportunities using synthetic data.
 
-This project simulates a value-based care use case by integrating provider benchmarking, opportunity scoring, predictive modeling, uplift modeling, and interactive dashboarding to support data-driven decision-making.
+The simulated cohort represents services for which a lower‑acuity alternative setting may be clinically appropriate for selected patients. For simplicity, the broader site‑of‑care continuum is modeled using three settings: inpatient (IP), hospital outpatient department (HOPD), and ambulatory surgical center (ASC), with ASC serving as the lower‑acuity alternative site. Administrative data can highlight potential opportunities for further review; patient‑level clinical appropriateness remains outside the scope of this simulation.
+
+This project integrates provider benchmarking, opportunity scoring, predictive modeling, exploratory uplift modeling, and interactive dashboarding to illustrate a value-based care analytics workflow.
 
 > Designed to simulate real-world value-based care use cases using synthetic and conceptual data models.
 
 
 ## Tech Stack
-- **Languages:** Python, SQL  
-- **Data & ML:** pandas, scikit-learn  
+
+- **Languages:** Python  
+- **Data & ML:** Pandas, NumPy, scikit-learn  
 - **Visualization:** Matplotlib, Seaborn, Streamlit
 - **Config & Dev:** YAML, GitHub  
 
 ## Key Features
 
 - Provider benchmarking against regional peers
-- Opportunity scoring based on utilization and cost gaps
+- Opportunity screening based on below-benchmark ASC use and above-benchmark average cost
+- Relative opportunity scoring based on procedure volume, ASC shortfall, and excess cost
 - Predictive modeling for high-cost site-of-care patterns
-- Uplift modeling to estimate provider responsiveness to intervention
+- Exploratory T-learner modeling to illustrate modeled responsiveness and targeting mechanics
 - Streamlit dashboard for interactive exploration
 
-## Design and Methodoligy
-- Simulation framework using synthetic data and conceptual healthcare data models
-- Feature engineering for provider-level cost and utilization patterns
-- Supervised learning models for risk prediction
-- Uplift modeling to estimate incremental impact of interventions
-- Visualization of opportunity vs. impact trade-offs
+## Design and Methodology
+
+- Simulation framework using synthetic provider-level data and conceptual healthcare data models
+- Three modeled site categories: IP, HOPD, and ASC; ASC serves as a simplified lower-acuity alternative site
+- Volume-weighted regional benchmarking of ASC utilization and average cost
+- One-sided opportunity score: procedure volume × ASC shortfall × excess cost
+- Exploratory uplift modeling based on a simulated treatment-response function
+- Visualization of opportunity vs. modeled response trade-offs
   
 ## Results Preview
+
+The simulation generates 5,000 provider observations. In the reproducible output, 1,661 (33.2%) meet the positive opportunity-screening criteria. The opportunity-versus-response visualization uses 1,597 observations after trimming values outside the 1st–99th percentiles of either the opportunity score or modeled intervention response for readability.
+
+Opportunity scores are relative prioritization signals, not estimates of realized savings.
 ![alt text](results/opportunity_vs_uplift.png)
 
 
