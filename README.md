@@ -41,7 +41,7 @@ This project integrates provider benchmarking, opportunity scoring, predictive m
 The simulation generates 5,000 provider observations. In the reproducible output, 1,661 (33.2%) meet the positive opportunity-screening criteria. The opportunity-versus-response visualization uses 1,597 observations after trimming values outside the 1st–99th percentiles of either the opportunity score or modeled intervention response for readability.
 
 Opportunity scores are relative prioritization signals, not estimates of realized savings.
-![alt text](results/opportunity_vs_uplift.png)
+![Opportunity score vs. modeled intervention response](results/opportunity_vs_response.png)
 
 
 ## Project Structure
