@@ -8,7 +8,7 @@ The simulated cohort represents services for which a lower‑acuity alternative 
 
 This project integrates provider benchmarking, opportunity scoring, predictive modeling, exploratory uplift modeling, and interactive dashboarding to illustrate a value-based care analytics workflow.
 
-> Designed to simulate real-world value-based care use cases using synthetic and conceptual data models.
+> All data and intervention responses are synthetic. Results are illustrative and should not be interpreted as estimates of realized savings, clinical appropriateness, or real-world causal treatment effects.
 
 
 ## Tech Stack
